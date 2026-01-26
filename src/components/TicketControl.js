@@ -5,17 +5,24 @@ import TicketList from './TicketList';
 function TicketControl() {
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
 
+  const handleClick = () => {
+    setFormVisibleOnPage(true);
+  }
+
   let currentlyVisibleState = null;
+  let buttonText = null;
 
   if (formVisibleOnPage) {
     currentlyVisibleState = <NewTicketForm/>;
   } else {
     currentlyVisibleState = <TicketList/>;
+    buttonText = "Add Ticket";
   }
 
   return (
     <React.Fragment>
       {currentlyVisibleState}
+      <button onClick={handleClick}>{buttonText}</button>
     </React.Fragment>
   );
 }
