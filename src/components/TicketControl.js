@@ -6,7 +6,7 @@ function TicketControl() {
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
 
   const handleClick = () => {
-    setFormVisibleOnPage(true);
+    setFormVisibleOnPage(!formVisibleOnPage);
   }
 
   let currentlyVisibleState = null;
@@ -14,6 +14,7 @@ function TicketControl() {
 
   if (formVisibleOnPage) {
     currentlyVisibleState = <NewTicketForm/>;
+    buttonText = "Return to Ticket List";
   } else {
     currentlyVisibleState = <TicketList/>;
     buttonText = "Add Ticket";
