@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import NewTicketForm from './NewTicketForm';
 import TicketList from './TicketList';
 import TicketView from './TicketView';
-// import EditTicketForm from './EditTicketForm';
+import EditTicketForm from './EditTicketForm';
 // import DeleteTicketForm from './DeleteTicketForm';
 
 function TicketControl() {
   const [mainTicketList, setMainTicketList] = useState([]);
   const [newFormVisible, setNewFormVisible] = useState(false);
   const [ticketInfoVisible, setTicketInfoVisible] = useState(false);
-  // const [editFormVisible, setEditFormVisible] = useState(false);
   // const [deleteFormVisible, setDeleteFormVisible] = useState(false);
+  const [selectedTicket, setSelectedTicket] = useState(null);
 
   const handleClick = () => {
     setNewFormVisible(!newFormVisible);
@@ -21,6 +21,19 @@ function TicketControl() {
     setMainTicketList(newMainTicketList);
     setNewFormVisible(false);
   }
+  
+  const handleRetrievingTicket = (id) => {
+    let result = null;
+    for (let i = 0; i < mainTicketList.length; i++) {
+      if (mainTicketList[i].id === id) {
+        result = mainTicketList[i];
+        break;
+      }
+    }
+    setSelectedTicket(result);
+    setTicketInfoVisible(true);
+    return result;
+  }
 
   let currentlyVisibleState = null;
   let buttonText = null;
@@ -29,16 +42,17 @@ function TicketControl() {
     currentlyVisibleState = <NewTicketForm onNewTicketCreation={handleAddingNewTicketToList}/>;
     buttonText = "Return to Ticket List";
   } else if (ticketInfoVisible) {
-    currentlyVisibleState = <TicketView/>
+    currentlyVisibleState = <TicketView ticket={selectedTicket} 
+    handleEditingTicket={editTicket}/>
     buttonText = "Return to Ticket List";
-  // } else if (editFormVisible) {
-  //   currentlyVisibleState = <EditTicketForm/>
-  //   buttonText = "Return to Ticket List";
+  } else if (isEditingTicket) {
+    currentlyVisibleState = <EditTicketForm/>
+    buttonText = "Return to Ticket List";
   // } else if (deleteFormVisible) {
   //   currentlyVisibleState = <DeleteTicketForm/>
   //   buttonText = "Return to Ticket List";
   } else {
-    currentlyVisibleState = <TicketList ticketList={mainTicketList}/>;
+    currentlyVisibleState = <TicketList ticketList={mainTicketList} handleRetrievingTicket={handleRetrievingTicket}/>;
     buttonText = "Add Ticket";
   }
 
