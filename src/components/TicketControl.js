@@ -9,8 +9,9 @@ function TicketControl() {
   const [mainTicketList, setMainTicketList] = useState([]);
   const [newFormVisible, setNewFormVisible] = useState(false);
   const [ticketInfoVisible, setTicketInfoVisible] = useState(false);
-  // const [deleteFormVisible, setDeleteFormVisible] = useState(false);
   const [selectedTicket, setSelectedTicket] = useState(null);
+  const [isEditingTicket, setIsEditingTicket] = useState(false);
+  // const [isDeletingTicket, setisDeletingTicket] = useState(false);
 
   const handleClick = () => {
     setNewFormVisible(!newFormVisible);
@@ -33,6 +34,22 @@ function TicketControl() {
     setSelectedTicket(result);
     setTicketInfoVisible(true);
     return result;
+  }
+
+  const editTicket = () => {
+    setTicketInfoVisible(false);
+    setIsEditingTicket(true);
+  }
+
+  const handleUpdatingTicketList = (ticketToEdit) => {
+    const newMainTicketList = mainTicketList.map(ticket => {
+      if (ticket.id === selectedTicket.id) {
+        ticket = ticketToEdit;
+      }
+    });
+    setMainTicketList(newMainTicketList);
+    setIsEditingTicket(false);
+    setTicketInfoVisible(true);
   }
 
   let currentlyVisibleState = null;
