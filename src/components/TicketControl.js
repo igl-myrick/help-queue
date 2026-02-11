@@ -63,7 +63,7 @@ function TicketControl() {
     handleEditingTicket={editTicket}/>
     buttonText = "Return to Ticket List";
   } else if (isEditingTicket) {
-    currentlyVisibleState = <EditTicketForm/>
+    currentlyVisibleState = <EditTicketForm onTicketEdit={handleUpdatingTicketList}/>
     buttonText = "Return to Ticket List";
   // } else if (deleteFormVisible) {
   //   currentlyVisibleState = <DeleteTicketForm/>
