@@ -6,9 +6,8 @@ function TicketView(props) {
     <React.Fragment>
       <h3>{props.ticket.location} - {props.ticket.names}</h3>
       <p><em>{props.ticket.issue}</em></p>
-      <button onClick={() => {}} type="button">New Ticket</button>
       <button onClick={() => {props.handleEditingTicket()}} type="button">Edit Ticket</button>
-      <button type="button">Delete Ticket</button>
+      <button onClick={() => {props.handleDeletingTicket()}} type="button">Delete Ticket</button>
       <hr/>
     </React.Fragment>
   )
@@ -16,7 +15,8 @@ function TicketView(props) {
 
 TicketView.propTypes = {
   ticket: PropTypes.object,
-  handleEditingTicket: PropTypes.func
+  handleEditingTicket: PropTypes.func,
+  handleDeletingTicket: PropTypes.func
 }
 
 export default TicketView;
