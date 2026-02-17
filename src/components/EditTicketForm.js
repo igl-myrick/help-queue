@@ -1,13 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-function EditTicketForm() {
+function EditTicketForm(props) {
   function handleEditTicketFormSubmission(event) {
     event.preventDefault();
     props.onTicketEdit({
       names: event.target.names.value,
       location: event.target.location.value,
       issue: event.target.issue.value,
-      id: ticket.id
+      id: event.target.id.value
     });
   }
 
@@ -29,6 +30,10 @@ function EditTicketForm() {
       </form>
     </React.Fragment>
   )
+}
+
+EditTicketForm.propTypes = {
+  onTicketEdit: PropTypes.func
 }
 
 export default EditTicketForm;
