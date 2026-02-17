@@ -36,7 +36,7 @@ function TicketControl() {
     return result;
   }
 
-  const editTicket = () => {
+  const beginEdit = () => {
     setTicketInfoVisible(false);
     setIsEditingTicket(true);
   }
@@ -44,15 +44,17 @@ function TicketControl() {
   const handleTicketEdit = (ticketToEdit) => {
     const newMainTicketList = mainTicketList.map(ticket => {
       if (ticket.id === selectedTicket.id) {
-        ticket = ticketToEdit;
+        return {...ticket, location: ticketToEdit.location, names: ticketToEdit.names, issue: ticketToEdit.issue};
       }
     });
+    console.log(newMainTicketList);
     setMainTicketList(newMainTicketList);
+    setSelectedTicket(ticketToEdit);
     setIsEditingTicket(false);
     setTicketInfoVisible(true);
   }
 
-  const deleteTicket = () => {
+  const beginDeletion = () => {
     setTicketInfoVisible(false);
     setisDeletingTicket(true);
   }
@@ -74,13 +76,14 @@ function TicketControl() {
     currentlyVisibleState = <NewTicketForm onNewTicketCreation={handleAddingNewTicketToList}/>;
     buttonText = "Return to Ticket List";
   } else if (ticketInfoVisible) {
-    currentlyVisibleState = <TicketView ticket={selectedTicket} 
-    handleEditingTicket={editTicket}
-    handleDeletingTicket={deleteTicket}/>
-    buttonText = "Return to Ticket List";
+    currentlyVisibleState = <TicketView 
+      ticket={selectedTicket} 
+      handleEditingTicket={beginEdit}
+      handleDeletingTicket={beginDeletion}/>
+      buttonText = "Return to Ticket List";
   } else if (isEditingTicket) {
     currentlyVisibleState = <EditTicketForm onTicketEdit={handleTicketEdit}/>
-    buttonText = "Return to Ticket List";
+    buttonText = "Return to Ticket";
   } else if (isDeletingTicket) {
     currentlyVisibleState = <DeleteTicketForm onTicketDeletion={handleTicketDeletion}/>
     buttonText = "Return to Ticket List";
