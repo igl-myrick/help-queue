@@ -2,6 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 
 function DeleteTicketForm(props) {
+  function handleDeleteTicketFormSubmission(event) {
+    event.preventDefault();
+  }
+
   return (
     <React.Fragment>
       <form onSubmit={handleDeleteTicketFormSubmission}>
