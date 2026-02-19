@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import NewTicketForm from './NewTicketForm';
 import TicketList from './TicketList';
+import TicketView from './TicketView';
 
 function TicketControl() {
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
   const [mainTicketList, setMainTicketList] = useState([]);
+  const [selectedTicket, setSelectedTicket] = useState(null);
 
   const handleClick = () => {
     setFormVisibleOnPage(!formVisibleOnPage);
@@ -16,16 +18,34 @@ function TicketControl() {
     setFormVisibleOnPage(false);
   }
 
+  const handleChangingSelectedTicket = (id) => {
+    const selection = mainTicketList.find(ticket => ticket.id === id);
+    setSelectedTicket(selection);
+  }
+
   let currentlyVisibleState = null;
   let buttonText = null;
 
-  if (formVisibleOnPage) {
-  currentlyVisibleState = <NewTicketForm onNewTicketCreation={handleAddingNewTicketToList}/>;
-  buttonText = "Return to Ticket List";
-} else {
-  currentlyVisibleState = <TicketList ticketList={mainTicketList}/>;
-  buttonText = "Add Ticket";
-}
+  if (selectedTicket !== null) {
+    currentlyVisibleState = 
+      <TicketView
+        ticket={selectedTicket}
+      />;
+    buttonText = "Return to Ticket List";
+  } else if (formVisibleOnPage) {
+    currentlyVisibleState = 
+      <NewTicketForm
+        onNewTicketCreation={handleAddingNewTicketToList}
+      />;
+    buttonText = "Return to Ticket List";
+  } else {
+    currentlyVisibleState = 
+      <TicketList
+        ticketList={mainTicketList}
+        onTicketSelection={handleChangingSelectedTicket}
+      />;
+    buttonText = "Add Ticket";
+  }
 
   return (
     <React.Fragment>
