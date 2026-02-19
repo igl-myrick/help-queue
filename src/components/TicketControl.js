@@ -9,7 +9,12 @@ function TicketControl() {
   const [selectedTicket, setSelectedTicket] = useState(null);
 
   const handleClick = () => {
-    setFormVisibleOnPage(!formVisibleOnPage);
+    if (selectedTicket !== null) {
+      setFormVisibleOnPage(false);
+      setSelectedTicket(null);
+    } else {
+      setFormVisibleOnPage(!formVisibleOnPage);
+    }
   }
 
   const handleAddingNewTicketToList = (newTicket) => {
