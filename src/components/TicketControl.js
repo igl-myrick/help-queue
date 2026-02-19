@@ -28,6 +28,12 @@ function TicketControl() {
     setSelectedTicket(selection);
   }
 
+  const handleDeleteTicket = (id) => {
+    const newMainTicketList = mainTicketList.filter(ticket => ticket.id !== id);
+    setMainTicketList(newMainTicketList);
+    setSelectedTicket(null);
+  }
+
   let currentlyVisibleState = null;
   let buttonText = null;
 
