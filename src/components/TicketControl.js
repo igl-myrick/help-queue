@@ -41,6 +41,7 @@ function TicketControl() {
     currentlyVisibleState = 
       <TicketView
         ticket={selectedTicket}
+        onClickingDelete={handleDeleteTicket}
       />;
     buttonText = "Return to Ticket List";
   } else if (formVisibleOnPage) {
