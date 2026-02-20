@@ -14,6 +14,7 @@ function TicketControl() {
     if (selectedTicket !== null) {
       setFormVisibleOnPage(false);
       setSelectedTicket(null);
+      setIsEditing(false);
     } else {
       setFormVisibleOnPage(!formVisibleOnPage);
     }
