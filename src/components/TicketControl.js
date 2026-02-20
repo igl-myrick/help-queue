@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import NewTicketForm from './NewTicketForm';
+import EditTicketForm from './EditTicketForm';
 import TicketList from './TicketList';
 import TicketView from './TicketView';
 
@@ -42,7 +43,11 @@ function TicketControl() {
   let currentlyVisibleState = null;
   let buttonText = null;
 
-  if (selectedTicket !== null) {
+  if (isEditing) {
+    currentlyVisibleState = (
+      <EditTicketForm ticket={selectedTicket}/>
+    )
+  } else if (selectedTicket !== null) {
     currentlyVisibleState = 
       <TicketView
         ticket={selectedTicket}
