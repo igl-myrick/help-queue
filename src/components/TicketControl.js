@@ -40,13 +40,27 @@ function TicketControl() {
     setIsEditing(true);
   }
 
+  const handleEditTicket = (ticketToEdit) => {
+    const editedTicketList = mainTicketList
+      .filter(ticket => ticket.id !== selectedTicket.id)
+      .concat(ticketToEdit);
+    
+    setMainTicketList(editedTicketList);
+
+    setIsEditing(false);
+    setSelectedTicket(null);
+  }
+
   let currentlyVisibleState = null;
   let buttonText = null;
 
   if (isEditing) {
     currentlyVisibleState = (
-      <EditTicketForm ticket={selectedTicket}/>
-    )
+      <EditTicketForm
+        ticket={selectedTicket}
+        onTicketEdit={handleEditTicket}/>
+    );
+    buttonText = "Return to Ticket List";
   } else if (selectedTicket !== null) {
     currentlyVisibleState = 
       <TicketView
