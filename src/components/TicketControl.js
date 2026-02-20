@@ -7,6 +7,7 @@ function TicketControl() {
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
   const [mainTicketList, setMainTicketList] = useState([]);
   const [selectedTicket, setSelectedTicket] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleClick = () => {
     if (selectedTicket !== null) {
@@ -34,6 +35,10 @@ function TicketControl() {
     setSelectedTicket(null);
   }
 
+  const handleEditClick = () => {
+    setIsEditing(true);
+  }
+
   let currentlyVisibleState = null;
   let buttonText = null;
 
@@ -42,6 +47,7 @@ function TicketControl() {
       <TicketView
         ticket={selectedTicket}
         onClickingDelete={handleDeleteTicket}
+        onClickingEdit={handleEditClick}
       />;
     buttonText = "Return to Ticket List";
   } else if (formVisibleOnPage) {
