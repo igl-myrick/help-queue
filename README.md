@@ -37,8 +37,7 @@ _4: Once the program is built, run `npm run start` to open and use the program._
 
 ## Known Bugs
 
-* _When attempting to return to a previous component, the app does not correctly switch back to the previous component._
-* _Delete functionality currently does not work._
+* _None at the moment._
 
 ## License
 
