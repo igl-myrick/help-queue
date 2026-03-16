@@ -3,6 +3,8 @@ import NewTicketForm from './NewTicketForm';
 import EditTicketForm from './EditTicketForm';
 import TicketList from './TicketList';
 import TicketView from './TicketView';
+import db from "./../firebase.js";
+import { collection, addDoc } from 'firebase/firestore';
 
 function TicketControl() {
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
@@ -20,9 +22,8 @@ function TicketControl() {
     }
   }
 
-  const handleAddingNewTicketToList = (newTicket) => {
-    const newMainTicketList = mainTicketList.concat(newTicket);
-    setMainTicketList(newMainTicketList);
+  const handleAddingNewTicketToList = async (newTicketData) => {
+    await addDoc(collection(db, "tickets"), newTicketData);
     setFormVisibleOnPage(false);
   }
 
