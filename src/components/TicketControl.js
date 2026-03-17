@@ -4,7 +4,7 @@ import EditTicketForm from './EditTicketForm';
 import TicketList from './TicketList';
 import TicketView from './TicketView';
 import db from "./../firebase.js";
-import { collection, addDoc, onSnapshot } from 'firebase/firestore';
+import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 function TicketControl() {
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
@@ -56,24 +56,19 @@ function TicketControl() {
     setSelectedTicket(selection);
   }
 
-  const handleDeleteTicket = (id) => {
-    const newMainTicketList = mainTicketList.filter(ticket => ticket.id !== id);
-    setMainTicketList(newMainTicketList);
-    setSelectedTicket(null);
-  }
-
   const handleEditClick = () => {
     setIsEditing(true);
   }
 
-  const handleEditTicket = (ticketToEdit) => {
-    const editedTicketList = mainTicketList
-      .filter(ticket => ticket.id !== selectedTicket.id)
-      .concat(ticketToEdit);
-    
-    setMainTicketList(editedTicketList);
-
+  const handleEditTicket = async (ticketToEdit) => {
+    const ticketRef = doc(db, "tickets", ticketToEdit.id);
+    await updateDoc(ticketRef, ticketToEdit);
     setIsEditing(false);
+    setSelectedTicket(null);
+  }
+
+  const handleDeleteTicket = async (id) => {
+    deleteDoc(doc(db, "tickets", id));
     setSelectedTicket(null);
   }
 
