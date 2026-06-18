@@ -1,8 +1,83 @@
-import React from "react";
+import React, { useState } from "react";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { auth } from "./../firebase";
 
 function SignIn() {
+  const [signUpSuccess, setSignUpSuccess] = useState(null);
+  const [signInSuccess, setSignInSuccess] = useState(null);
+  const [signOutSuccess, setSignOutSuccess] = useState(null);
+
+  const doSignUp = (event) => {
+    event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setSignUpSuccess(`You've successfully signed up, ${userCredential.user.email}!`);
+      })
+      .catch((error) => {
+        setSignUpSuccess(`There was an error signing up: ${error.message}`)
+      });
+  }
+  
+  const doSignIn = (event) => {
+    event.preventDefault();
+    const email = event.target.signInEmail.value;
+    const password = event.target.signInPassword.value;
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        setSignInSuccess(`You've successfully signed in as ${userCredential.user.email}!`);
+      })
+      .catch((error) => {
+        setSignInSuccess(`There was an error signing in: ${error.message}`);
+      });
+  }
+
+  const doSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        setSignOutSuccess("You have successfully signed out!");
+      })
+      .catch((error) => {
+        setSignOutSuccess(`There was an error signing out: ${error.message}`);
+      });
+  }
+
   return (
-    <h1>Sign In</h1>
+    <React.Fragment>
+      <h1>Sign up</h1>
+      {signUpSuccess}
+      <form onSubmit={doSignUp}>
+        <input
+          type="text"
+          name="email"
+          placeholder="Email"/>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"/>
+        <button type="submit">Sign up</button>
+      </form>
+
+      <h1>Sign in</h1>
+      {signInSuccess}
+      <form onSubmit={doSignIn}>
+        <input
+          type="text"
+          name="signInEmail"
+          placeholder="Email"/>
+        <input
+          type="password"
+          name="signInPassword"
+          placeholder="Password"/>
+        <button type="submit">Sign In</button>
+      </form>
+
+      <h1>Sign out</h1>
+      {signOutSuccess}
+      <br/>
+      <button onClick={doSignOut}>Sign out</button>
+    </React.Fragment>
   );
 }
 
