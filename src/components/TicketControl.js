@@ -3,7 +3,7 @@ import NewTicketForm from './NewTicketForm';
 import EditTicketForm from './EditTicketForm';
 import TicketList from './TicketList';
 import TicketView from './TicketView';
-import db from "./../firebase.js";
+import { db } from "./../firebase.js";
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 function TicketControl() {
