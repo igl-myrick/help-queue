@@ -41,6 +41,25 @@ function TicketControl() {
     return () => unSubscribe();
   }, []);
 
+  useEffect(() => {
+    function updateTicketElapsedWaitTime() {
+      const newMainTicketList = mainTicketList.map(ticket => {
+        const newFormattedWaitTime = formatDistanceToNow(ticket.timeOpen);
+        return {...ticket, formattedWaitTime: newFormattedWaitTime};
+      });
+      setMainTicketList(newMainTicketList);
+    }
+
+    const waitTimeUpdateTimer = setInterval(() => 
+      updateTicketElapsedWaitTime(),
+      60000
+    );
+
+    return function cleanup() {
+      clearInterval(waitTimeUpdateTimer);
+    }
+  }, [mainTicketList]);
+
   const handleClick = () => {
     if (selectedTicket !== null) {
       setFormVisibleOnPage(false);
