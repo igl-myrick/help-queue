@@ -3,11 +3,13 @@ import Header from './Header';
 import TicketControl from './TicketControl';
 import SignIn from "./SignIn";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ToggleTheme from './ToggleTheme';
 
 function App() {
   return (
     <Router>
       <Header/>
+      <ToggleTheme/>
       <Routes>
         <Route path="/sign-in" element={<SignIn/>}/>
         <Route path="/" element={<TicketControl/>}/>
