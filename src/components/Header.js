@@ -13,6 +13,7 @@ function Header() {
           <Link to="/sign-in">Sign In</Link>
         </li>
       </ul>
+      <hr/>
     </React.Fragment>
   );
 }
