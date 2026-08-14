@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { auth } from "./../firebase";
+import { ThemeContext } from "../context/theme-context";
 
 function SignIn() {
   const [signUpSuccess, setSignUpSuccess] = useState(null);
   const [signInSuccess, setSignInSuccess] = useState(null);
   const [signOutSuccess, setSignOutSuccess] = useState(null);
+
+  const theme = useContext(ThemeContext);
+
+  const buttonStyles = {
+    backgroundColor: theme.buttonBackground,
+    color: theme.textColor
+  }
+
+  const inputStyles = {
+    backgroundColor: theme.inputBackground,
+    color: theme.textColor
+  }
 
   const doSignUp = (event) => {
     event.preventDefault();
@@ -49,34 +62,38 @@ function SignIn() {
       {signUpSuccess}
       <form onSubmit={doSignUp}>
         <input
+          style={inputStyles}
           type="text"
           name="email"
           placeholder="Email"/>
         <input
+          style={inputStyles}
           type="password"
           name="password"
           placeholder="Password"/>
-        <button type="submit">Sign up</button>
+        <button style={buttonStyles} type="submit">Sign up</button>
       </form>
 
       <h1>Sign in</h1>
       {signInSuccess}
       <form onSubmit={doSignIn}>
         <input
+          style={inputStyles}
           type="text"
           name="signInEmail"
           placeholder="Email"/>
         <input
+          style={inputStyles}
           type="password"
           name="signInPassword"
           placeholder="Password"/>
-        <button type="submit">Sign In</button>
+        <button style={buttonStyles} type="submit">Sign In</button>
       </form>
 
       <h1>Sign out</h1>
       {signOutSuccess}
       <br/>
-      <button onClick={doSignOut}>Sign out</button>
+      <button style={buttonStyles} onClick={doSignOut}>Sign out</button>
     </React.Fragment>
   );
 }
