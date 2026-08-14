@@ -5,13 +5,15 @@ export const themes = {
     backgroundColor: "AntiqueWhite",
     textColor: "DarkSlateGrey",
     buttonBackground: "Lavender", 
-    inputBackground: "Gainsboro"
+    inputBackground: "Gainsboro",
+    linkColor: "DarkBlue"
   },
   dark: {
     backgroundColor: "DarkSlateGrey",
     textColor: "AntiqueWhite",
     buttonBackground: "#232b3c",
-    inputBackground: "#45516d"
+    inputBackground: "#45516d",
+    linkColor: "LightBlue"
   }
 };
 
