@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import NewTicketForm from './NewTicketForm';
 import EditTicketForm from './EditTicketForm';
 import TicketList from './TicketList';
@@ -6,6 +6,7 @@ import TicketView from './TicketView';
 import { db, auth } from "./../firebase.js";
 import { collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from 'firebase/firestore';
 import { formatDistanceToNow } from 'date-fns';
+import { ThemeContext } from '../context/theme-context.js';
 
 function TicketControl() {
   const [formVisibleOnPage, setFormVisibleOnPage] = useState(false);
@@ -63,6 +64,13 @@ function TicketControl() {
       clearInterval(waitTimeUpdateTimer);
     }
   }, [mainTicketList]);
+
+  const theme = useContext(ThemeContext);
+
+  const styles = {
+    backgroundColor: theme.buttonBackground,
+    color: theme.textColor
+  }
 
   const handleClick = () => {
     if (selectedTicket !== null) {
@@ -145,7 +153,7 @@ function TicketControl() {
     return (
       <React.Fragment>
         {currentlyVisibleState}
-        {error ? null : <button onClick={handleClick}>{buttonText}</button>}
+        {error ? null : <button style={styles} onClick={handleClick}>{buttonText}</button>}
       </React.Fragment>
     );
   }
